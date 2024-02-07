@@ -1,5 +1,5 @@
 body {
-  background-color: lightgreen;
+  background-color: #18171f;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,23 +7,68 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: 'Courier New', Courier, monospace;
+  color: aliceblue;
 }
 
 div {
   text-align: center;
 }
 
+
 .container {
-  display: flex;
+ 
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 
+
 .box {
-  background-color: white;
-  border: 1px solid black;
+  display: block;
+  flex-direction: row;
+  background-color: #24232c;
   padding: 20px;
-  text-align: center;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.slider-container {
+  text-align: left;
+}
+
+.generate-button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#FileCopyIcon {
+  float: right;
+  color: #a4ffaf;
+}
+
+#generate-button {
+  background-color: #a4ffaf;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 20px;
+  font-weight: bold;
+  width: fit-content;
+  padding-left: 100px;
+  padding-right: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  white-space: nowrap;
+  margin-top: 20px
+}
+
+#generate-box{
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+#password-length{
+  text-align: left;
 }
