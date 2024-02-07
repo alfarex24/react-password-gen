@@ -10,16 +10,20 @@ import Checkbox from '@mui/material/Checkbox';
 
 
 function App() {
-  const [password, setPassword] = useState('Pa55W0rD');
+  const [password, setPassword] = useState('password');
   const [alertOpen, setAlertOpen] = useState(false);
-  const [passwordLength, setPasswordLength] = useState(0);
+  const [passwordLength, setPasswordLength] = useState(1);
   const [includeUppercase, setIncludeUppercase] = useState(false);
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const [includeNumbers, setIncludeNumbers] = useState(false);
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
+  const [passwordGrade, setPasswordGrade] = useState('')
 
   const generatePassword = () => {
     const newPassword = createPassword(passwordLength, includeUppercase, includeSymbols, includeNumbers);
     setPassword(newPassword);
+    setIsButtonClicked(true);
   };
 
   function createPassword(length, includeUppercase, includeSymbols, includeNumbers) {
@@ -39,6 +43,31 @@ function App() {
     }
   
     return password;
+  }
+
+  useEffect(() => {
+    const newStrength = calculatePasswordStrength(password);
+    setPasswordStrength(newStrength);
+    CalculatePasswordGrade(newStrength)
+  }, [password]);
+
+  
+  function CalculatePasswordGrade(passwordStrength) {
+    if (passwordStrength === 0) setPasswordGrade('Very Weak')
+    if (passwordStrength === 1) setPasswordGrade('Weak')
+    if (passwordStrength === 2) setPasswordGrade('Medium')
+    if (passwordStrength === 3) setPasswordGrade('Strong')
+    if (passwordStrength === 4) setPasswordGrade('Very Strong')
+  }
+
+
+  function calculatePasswordStrength(password) {
+    let strength = 0;
+    if (password.length > 8) strength++;
+    if (password.match(/[A-Z]/)) strength++;
+    if (password.match(/[0-9]/)) strength++;
+    if (password.match(/[^A-Za-z0-9]/)) strength++;
+    return strength;
   }
 
   const handleCopy = () => {
@@ -73,6 +102,7 @@ function App() {
             onChange={(event, newValue) => setPasswordLength(newValue)}
             aria-labelledby="discrete-slider"
             valueLabelDisplay="off"
+            color = 'secondary'
             step={1}
             min={1}
             max={20}
@@ -92,6 +122,18 @@ function App() {
             label="Include Numbers"
           />
         </div>
+        <div id = "password-strength-container">
+          <div id = 'strength-text'>
+            Password Strength: {passwordGrade}
+          </div>
+          <div className={`password-strength strength-${passwordStrength}`}>
+            <div className={`strength-box ${passwordStrength > 0 && isButtonClicked ? 'active' : 'inactive'}`}></div>
+            <div className={`strength-box ${passwordStrength > 1 && isButtonClicked ? 'active' : 'inactive'}`}></div>
+            <div className={`strength-box ${passwordStrength > 2 && isButtonClicked ? 'active' : 'inactive'}`}></div>
+            <div className={`strength-box ${passwordStrength > 3 && isButtonClicked ? 'active' : 'inactive'}`}></div>
+          </div>
+        </div>
+        
         <div className="generate-button-container">
           <button id='generate-button' onClick={generatePassword}>Generate Password</button>
         </div>
