@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, {useState, useRef, useEffect} from 'react';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
@@ -146,6 +145,6 @@ function App() {
       
     </div>
   );
-}
+} 
 
 export default App;
